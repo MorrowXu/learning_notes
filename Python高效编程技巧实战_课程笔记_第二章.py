@@ -2,6 +2,7 @@
 #!/usr/bin/env python
 # Author: Morrow
 
+# 第二章数据结构与算法进阶训练
 #----------2-1----------
 # 过滤
 from random import randint
@@ -58,3 +59,31 @@ print s # Student(name='Jim', age=16, sex='male', email='jim8721@gmail.com')
 print s[0],s.name,isinstance(s, tuple) # Jim
 
 #----------2-2----------
+
+#----------2-3----------
+# 统计序列中元素的频度
+data = [randint(0,20) for _ in xrange(20)]
+c = dict.fromkeys(data, 0)
+for x in data:
+	c[x] += 1
+
+from collections import Counter
+c2 = Counter(data)
+c2.most_common(3)
+
+# 单词频率统计
+# import re
+# f = open('xxx.txt').read()
+# lst = re.split('\w+', f)
+# c3 = Counter(lst)
+# c3.most_common(10) # 得出频率最高的前10单词
+
+#----------2-3----------
+
+#----------2-4----------
+# 对字典中的项排序
+d = {x: randint(60,100) for x in 'xyzabc'}
+result = sorted(zip(d.itervalues(), d.iterkeys())) # 方法一,zip后sorted
+sorted(d.items(), key=lambda x: x[1]) # 方法二, 改sorted默认排序参数
+
+#----------2-4----------
