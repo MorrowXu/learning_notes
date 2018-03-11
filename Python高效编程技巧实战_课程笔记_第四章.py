@@ -75,3 +75,66 @@ lst = ['a', 'b',1,2,3,'c']
 ''.join((str(x) for x in lst)) # 使用生成器表达式,开销低
 ''.join(str(x) for x in lst) # 同是生成器表达式
 #----------4-4----------
+
+#----------4-5----------
+# 如何对字符串进行左, 右, 居中对齐
+# 方法一
+# 使用字符串的 str.ljust() str.rjust() str.center()
+s = 'abc'
+s.ljust(20) # 20代表宽度
+# 'abc                 '
+s.ljust(20, '=') # 宽度20, 用=号填充
+# 'abc================='
+s.rjust(20)
+# '                 abc'
+s.center(20)
+# '        abc         '
+
+# 方法二
+# 使用format()方法,传递类似'<20>', '>20', '^20'参数完成
+s = 'abc'
+format(s, '<20')
+# 'abc                 '
+format(s, '>20')
+# '                 abc'
+format(s, '^20')
+# '        abc         '
+# 取字典中键的最大宽度
+max(map(len, d.keys()))
+#----------4-5----------
+
+#----------4-6----------
+# 去掉字符串中不需要的字符
+# 方法一 字符串strip(),lstrip(),rstrip()方法去掉字符串两端字符
+s = '   abc 123   '
+s.strip()
+# 'abc 123' lstrip 去掉左边 rstrip 去掉右边
+s = '---abc+++'
+s.strip('-+') # '-+' 代表需要去掉的符号
+# 'abc' 
+
+# 方法二 删除单个固定位置的字符,可以使用切片+拼接的方法
+s = 'abc:123'
+s[:3] + s[-3:] # s[:3] + s[4:]
+
+# 方法三 字符串的replace()方法或者正则表达式的re.sub()删除任意位置字符
+s = '\tabc\t123\txyz'
+s.replace('\t', '')
+# 'abc123xyz'
+import re
+s = '\tabc\t123\txyz\ropq\r'
+re.sub(r'[\t\r]', '', s)
+# 'abc123xyzopq'
+
+# 方法四 字符串translate()方法, 可以同时删除多种不同的字符.
+s = 'abc12314324432xyz' # 对该字符串加密 a=x b=y c=z x=a y=b z=c 建立这种映射表
+import string
+cc = string.maketrans('abcxyz','xyzabc') # 利用string 函数建立映射表,string.maketrans方法返回一个映射表
+s.translate(cc)
+# 'xyz12314324432abc'
+s = 'abc\refg\n234324\t' # 删除\r\n\t
+s.translate(None, '\r\n\t')
+# 'abcefg234324'
+# unicode 音标转换 略
+
+#----------4-6----------
